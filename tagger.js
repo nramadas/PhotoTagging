@@ -34,9 +34,14 @@ var T = (function () {
       var tags = this.grabTags();
 
       $(tags).each(function(){
-        var tag = $("<div>" + this.name + "</div>")
+        var tag = $("<div></div>")
                       .addClass("tag")
                       .css({"top": this.yPercent, "left": this.xPercent});
+
+        var title = $("<div>" + this.name + "</div>")
+                      .addClass("title");
+
+        tag.append(title);
         $("#tags").append(tag);
       });
 
