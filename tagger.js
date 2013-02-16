@@ -1,6 +1,7 @@
 var T = (function () {
   var TagStore = function() {
     this.tags = [];
+    this.display = true;
 
     this.makeTag = function (name, xPercent, yPercent) {
       this.tags.push(
@@ -12,7 +13,35 @@ var T = (function () {
       );
     };
 
-    this.grabTags = function () {};
+    this.grabTags = function () {
+      return this.tags;
+    };
+
+    this.toggleTags = function () {
+      if(this.display) {
+        this.showTags();
+      } else {
+        this.hideTags();
+      }
+    };
+
+    this.hideTags = function () {
+      $("#tags").empty();
+      this.display = true;
+    };
+
+    this.showTags = function () {
+      var tags = this.grabTags();
+
+      $(tags).each(function(){
+        var tag = $("<div>" + this.name + "</div>")
+                      .addClass("tag")
+                      .css({"top": this.yPercent, "left": this.xPercent});
+        $("#tags").append(tag);
+      });
+
+      this.display = false;
+    };
   };
 
 
@@ -92,6 +121,7 @@ var T = (function () {
 
     this.makePreTag = function(xPercent, yPercent) {
       $("#selection").empty();
+      this.userStore.tagStore.hideTags();
 
       var container = $("<div></div")
           .addClass("selectionContainer")
@@ -103,6 +133,10 @@ var T = (function () {
         $("<div></div>")
           .addClass("preTag")
       );
+
+      container.mouseleave(function() {
+        $("#selection").empty();
+      });
 
       container.append(this.userStore.returnUsersAsHtml());
       $("#selection").append(container);
@@ -128,5 +162,7 @@ $(function () {
     x.setUp();
   });
 
-
+  $("#toggler").click(function() {
+    tagStore.toggleTags();
+  });
 });
