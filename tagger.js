@@ -66,6 +66,11 @@ var T = (function () {
       this.makeUser("Kush");
       this.makeUser("Kenny");
       this.makeUser("Adam");
+      this.makeUser("Jordan");
+      this.makeUser("Mario");
+      this.makeUser("Kriti");
+      this.makeUser("Shaun");
+      this.makeUser("Sean");
       this.makeUser("ExtraSpecialAdam");
     };
 
